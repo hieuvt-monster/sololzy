@@ -8,6 +8,9 @@ public class MainController : MonoBehaviour
 
     public bool OnGround = false;
     public float MoveSpeed = 1;
+    public float WalkSpeed = 1;
+    public float RunSpeed = 1;
+
     public float Jump = 1;
     public Rigidbody2D PlayerRigidbody2D;
     public SpriteRenderer PlayerSpriteRenderer;
@@ -16,13 +19,17 @@ public class MainController : MonoBehaviour
     public bool isPressedButtonRight = false;
     public bool isPressedButtonLeft = false;
 
+    private void Awake()
+    {
+        Physics2D.IgnoreLayerCollision(0,10);
+    }
 
     public object PlayerAnimator { get; private set; }
 
     void Update()
     {
-        //KeyboardController();
-        TouchController();
+        KeyboardController();
+        //TouchController();
     }
     void TouchController()
     {
@@ -61,6 +68,15 @@ public class MainController : MonoBehaviour
         if (Input.GetKeyDown("w") == true)
         {
             PlayerJump();
+        }
+
+        if (Input.GetKey("left shift"))
+        {
+            MoveSpeed = RunSpeed;
+        }
+        else
+        {
+            MoveSpeed = WalkSpeed;
         }
     }
     
